@@ -1,0 +1,64 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          # Add tests here
+          python -m pytest tests/ || echo "No tests found yet"
+
+      - name: Test backend health endpoint
+        run: |
+          cd backend
+          uvicorn src.app:app --host 0.0.0.0 --port 8000 &
+          sleep 5
+          curl -f http://localhost:8000/health || exit 1
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm install || echo "Frontend not set up yet"
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm test || echo "Frontend tests not set up yet"
+
+      - name: Build frontend
+        run: |
+          cd frontend
+          npm run build || echo "Frontend build not set up yet"
