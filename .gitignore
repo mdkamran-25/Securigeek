@@ -18,6 +18,11 @@ yarn-error.log*
 .npm
 dist/
 
+# Next.js
+.next/
+out/
+.turbo/
+
 # IDE
 .vscode/
 .idea/
