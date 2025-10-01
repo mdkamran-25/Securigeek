@@ -1,18 +1,30 @@
-# Issue Tracker
+# AIHubX - AI Discovery & Learning Platform
 
-A simple Issue Tracker with Python FastAPI backend and Angular frontend.
+A comprehensive AI discovery, learning, and hiring platform built with FastAPI backend and Next.js frontend.
 
 ## Features
 
+### Backend (Issue Tracker API)
 - View, search, filter, and sort issues
 - Create and update issues
 - Pagination support
-- REST API with Angular Material UI
+- REST API with FastAPI
+
+### Frontend (AIHubX Platform)
+- **Landing Page**: Hero section, trending AI tools, search functionality, stats
+- **AI Listings**: Browse and filter 10+ AI tools with detailed cards
+- **AI Tool Details**: Interactive tool pages with performance metrics, reviews, and alternatives
+- **Testing Environment**: Code editor and chat interface for testing AI tools
+- **Learn Section**: Structured courses with progress tracking and quizzes
+- **Leaderboard**: Global rankings with badges and achievements
+- **Hire Platform**: Job board for AI talent recruitment
 
 ## Tech Stack
 
 - **Backend**: FastAPI, SQLModel, SQLite, Uvicorn
-- **Frontend**: Angular, Angular Material, TypeScript
+- **Frontend**: Next.js 15, React 19, TypeScript, TailwindCSS v4
+- **UI Components**: ShadCN UI, Lucide Icons, Recharts, Framer Motion
+- **Design**: Glassmorphism with Almond (#EFDECD) and Burgundy (#800020) theme
 
 ## Project Structure
 
@@ -25,8 +37,12 @@ A simple Issue Tracker with Python FastAPI backend and Angular frontend.
 │   │   ├── app.py    # Main FastAPI app
 │   │   └── database.py # Database configuration
 │   └── requirements.txt
-└── frontend/         # Angular frontend
-    └── src/
+└── frontend/         # Next.js frontend
+    ├── app/          # App router pages
+    ├── components/   # Reusable components
+    │   ├── ui/       # UI components
+    │   └── layout/   # Layout components
+    └── lib/          # Utilities and data
 ```
 
 ## Quick Start
@@ -46,8 +62,10 @@ uvicorn src.app:app --reload
 ```bash
 cd frontend
 npm install
-ng serve
+npm run dev
 ```
+
+The frontend will be available at http://localhost:3000
 
 ## API Endpoints
 
@@ -70,20 +88,15 @@ ng serve
 - `sort_by` - Sort field (default: updated_at)
 - `sort_order` - Sort order: asc, desc (default: desc)
 
-## Issue Data Model
+## Frontend Pages
 
-```json
-{
-  "id": "integer (auto-generated)",
-  "title": "string",
-  "description": "string (optional)",
-  "status": "enum: ['open','in progress','closed']",
-  "priority": "enum: ['low','medium','high']",
-  "assignee": "string (optional)",
-  "created_at": "ISO8601 timestamp",
-  "updated_at": "ISO8601 timestamp"
-}
-```
+- `/` - Landing page with hero, trending AI tools, and features
+- `/ai-listings` - Browse all AI tools with filters
+- `/ai-tool/[id]` - Detailed tool page with tabs (Overview, Live Test, Reviews, Alternatives)
+- `/test-environment` - Interactive testing environment with code editor and chat
+- `/learn` - Learning section with courses and quizzes
+- `/leaderboard` - Global rankings and achievements
+- `/hire` - Job board for hiring AI talent
 
 ## Development
 
@@ -91,7 +104,7 @@ ng serve
 
 - Backend API: http://localhost:8000
 - API Documentation: http://localhost:8000/docs
-- Frontend: http://localhost:4200
+- Frontend: http://localhost:3000
 
 ### Database
 
@@ -102,33 +115,20 @@ ng serve
 
 Use the interactive docs at http://localhost:8000/docs to test all endpoints.
 
-## Assignment Requirements ✅
+## Building for Production
 
-- [x] FastAPI backend with REST APIs
-- [x] SQLite database with SQLModel ORM
-- [x] Health endpoint
-- [x] CRUD operations for issues
-- [x] Search, filter, sort, pagination
-- [x] Auto-generated timestamps
-- [ ] Angular frontend (Phase 2)
-- [ ] Unit tests
+### Backend
+```bash
+cd backend
+uvicorn src.app:app --host 0.0.0.0 --port 8000
+```
 
-## Current Status
-
-### ✅ Phase 0 & 1 Complete
-- ✅ Project setup with proper Git structure
-- ✅ Backend API fully functional
-- ✅ Database models and migrations
-- ✅ All required endpoints implemented
-- ✅ CORS configured for frontend
-- ✅ API documentation available
-
-### 🚧 Phase 2 (Next)
-- Angular frontend setup
-- Material UI components
-- Issue list table with filtering
-- Issue creation/edit forms
-- Issue detail view
+### Frontend
+```bash
+cd frontend
+npm run build
+npm start
+```
 
 ## Contributing
 
@@ -141,3 +141,4 @@ Use the interactive docs at http://localhost:8000/docs to test all endpoints.
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
